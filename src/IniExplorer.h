@@ -4,18 +4,21 @@
 #include <iplugintool.h>
 #include <QString>
 #include "lib/constants.h"
+#include "ui/IniExplorerWindow.h"
 
 
-class IniExplorer final : public MOBase::IPluginTool {
+class IniExplorer final :public MOBase::IPluginTool
+{
   Q_OBJECT
   Q_INTERFACES(MOBase::IPlugin MOBase::IPluginTool)
 
-#if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
-  Q_PLUGIN_METADATA(IID "io.clearing.IniExplorer" FILE "iniexplorer.json")
-#endif
+  #if QT_VERSION >= QT_VERSION_CHECK(5, 0, 0)
+    Q_PLUGIN_METADATA(IID "io.clearing.IniExplorer" FILE "iniexplorer.json")
+  #endif
 
 
 public:
+  IniExplorer();
   bool init(MOBase::IOrganizer *organizer) override;
 
   QString name() const override { return IniExplorerConstants::PLUGIN_NAME; };
@@ -38,6 +41,7 @@ public:
 
 private:
   MOBase::IOrganizer* mOrganizer{nullptr};
+  std::shared_ptr<IniExplorerWindow> mWindow;
 };
 
 
